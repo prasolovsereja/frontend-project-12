@@ -38,4 +38,4 @@ const MessagesBox = ({ selectedChannel }) => {
   );
 };
 
-export default MessagesBoxж
+export default MessagesBox;
