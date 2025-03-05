@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import NotFound from "./NotFound.jsx";
-import Login from "./LoginPage.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import LoginPage from './pages/LoginPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 import PrivateRoute from "./utils/PrivateRoute.jsx";
 
-const Home = () => <div>Главная Страница</div>;
 
 const AppRouter = () => {
   return (
@@ -12,11 +12,11 @@ const AppRouter = () => {
         path="/"
         element={
           <PrivateRoute>
-            <Home />
+            <HomePage />
           </PrivateRoute>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
