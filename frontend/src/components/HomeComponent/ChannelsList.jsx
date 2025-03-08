@@ -1,7 +1,19 @@
-import { getChannels } from "../../api/apiSlice.js";
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getChannels } from "../../api/channelsApi.js";
+import { setSelectedChannel } from '../../slices/channelsSlice.js';
 
-const ChannelsList = ({ selectedChannel, onSelectedChannel }) => {
+const ChannelsList = () => {
+  const dispatch = useDispatch();
+  const selectedChannel = useSelector((state) => state.channels.selectedChannel);
   const { data: channels, isLoading, error } = getChannels();
+
+  useEffect(() => {
+    if (channels && channels.length > 0) {
+      dispatch(setSelectedChannel(channels[0]));
+    }
+  }, [channels, dispatch]);
 
   if (isLoading) return <p>Загрузка каналов...</p>;
   if (error) return <p>Ошибка загрузки каналов</p>;
@@ -15,9 +27,9 @@ const ChannelsList = ({ selectedChannel, onSelectedChannel }) => {
           <button
             type="button"
             className={`w-100 rounded-0 text-start btn ${
-              selectedChannel === Number(channel.id) ? "btn-secondary" : ""
+              selectedChannel && selectedChannel.id === channel.id ? "btn-secondary" : ""
             }`}
-            onClick={() => onSelectedChannel(Number(channel.id))}
+            onClick={() => dispatch(setSelectedChannel(channel))}
           >
             <span className="me-1">#</span>
             {channel.name}

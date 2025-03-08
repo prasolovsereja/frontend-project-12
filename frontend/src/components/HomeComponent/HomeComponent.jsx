@@ -3,7 +3,6 @@ import ChannelsList from './ChannelsList';
 import MessagesBox from './MessageBox';
 
 const Home = () => {
-  const [selectedChannel, onSelectedChannel] = useState(1);
 
   return (
     <div className='container h-100 my-4 overflow-hidden rounded shadow'>
@@ -15,9 +14,9 @@ const Home = () => {
               <span>+</span>
             </button>
           </div>
-          <ChannelsList selectedChannel={selectedChannel} onSelectedChannel={onSelectedChannel} />
+          <ChannelsList />
         </div>
-        <MessagesBox selectedChannel={selectedChannel} />
+        <MessagesBox />
       </div>
     </div>
   );
