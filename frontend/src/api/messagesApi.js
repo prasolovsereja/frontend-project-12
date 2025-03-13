@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const messagesApi = createApi({
   reducerPath: "messagesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001/api/v1",
+    baseUrl: "http://localhost:5001/api/v1/messages",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
 
@@ -14,9 +14,18 @@ export const messagesApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getMessages: builder.query({ query: () => "/messages" }),
+    getMessages: builder.query({ query: () => "" }),
+    newMessage: builder.mutation({
+      query: (message) => ({
+        method: "POST",
+        body: message,
+      }),
+    }),
   }),
 });
 
-const { useGetMessagesQuery } = messagesApi;
-export { useGetMessagesQuery as getMessages };
+const { useGetMessagesQuery, useNewMessageMutation } = messagesApi;
+export {
+  useGetMessagesQuery as getMessages,
+  useNewMessageMutation,
+};

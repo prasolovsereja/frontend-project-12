@@ -27,9 +27,8 @@ const Login = () => {
                 try {
                   const response = await api.post("/login", values);
                   console.log("Ответ от сервера:", response.data);
-                  const { token } = response.data;
-                  console.log(token);
-                  dispatch(login({ token }));
+                  const { token, username } = response.data;
+                  dispatch(login({ token, username }));
                   navigate("/");
                 } catch (error) {
                   console.error(

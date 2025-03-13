@@ -1,13 +1,30 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNewMessageMutation } from "../../api/messagesApi";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
+  const selectedChannel = useSelector(
+    (state) => state.channels.selectedChannel
+  );
+  const username = useSelector((state) => state.auth.username);
+  const [newMessage] = useNewMessageMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (message.trim() === "") return;
 
-    setMessage("");
+    try {
+      await newMessage({
+        body: message,
+        channelId: selectedChannel.id,
+        username,
+      });
+      setMessage("");
+    } catch (error) {
+      console.error("Ошибка при отправке сообщения:", error);
+    }
   };
 
   return (

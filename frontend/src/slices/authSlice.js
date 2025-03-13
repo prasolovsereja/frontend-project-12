@@ -4,7 +4,8 @@ const getToken = () => localStorage.getItem('token');
 
 const initialState = {
   token: getToken() || null,
-  isAuthenticated: !!getToken(), 
+  isAuthenticated: !!getToken(),
+  username: null, 
 };
 
 const authSlice = createSlice({
@@ -13,12 +14,14 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.isAuthenticated = true;
+      state.username = action.payload.username;
       state.token = action.payload.token;
       localStorage.setItem('token', action.payload.token);
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.token = null;
+      state.username = null;
       localStorage.removeItem('token');
     },
   },

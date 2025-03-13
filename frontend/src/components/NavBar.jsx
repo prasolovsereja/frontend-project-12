@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { useDispatch } from 'react-redux';
-import { logout } from '../slices/authSlice.js';
+import { useDispatch } from "react-redux";
+import { logout } from "../slices/authSlice.js";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,13 @@ const NavBar = () => {
           Hexlet chat
         </a>
         {isAuthenticated ? (
-          <button type="button" className="btn btn-primary" onClick={() => dispatch(logout())}>Выйти</button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => dispatch(logout())}
+          >
+            Выйти
+          </button>
         ) : null}
       </div>
     </nav>
