@@ -26,7 +26,6 @@ const Login = () => {
               onSubmit={async (values, { setSubmitting, setErrors }) => {
                 try {
                   const response = await api.post("/login", values);
-                  console.log("Ответ от сервера:", response.data);
                   const { token, username } = response.data;
                   dispatch(login({ token, username }));
                   navigate("/");
@@ -45,12 +44,14 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <div className="form-floating mb-3">
-                    <label htmlFor="username">Ваш ник</label>
                     <Field
                       type="text"
                       name="username"
                       className="form-control"
+                      id='username'
+                      placeholder='Ваш ник'
                     />
+                    <label htmlFor="username">Ваш ник</label>
                     <ErrorMessage
                       name="username"
                       component="div"
@@ -58,12 +59,14 @@ const Login = () => {
                     />
                   </div>
                   <div className="form-floating mb-3">
-                    <label htmlFor="password">Пароль</label>
                     <Field
                       type="password"
                       name="password"
                       className="form-control"
+                      id='password'
+                      placeholder='Пароль'
                     />
+                    <label htmlFor="password">Пароль</label>
                     <ErrorMessage
                       name="password"
                       component="div"

@@ -48,7 +48,7 @@ const MessagesBox = () => {
         <div id="message-box" className="chat-messages overflow-auto px-5">
           {filteredMessages?.map((msg) => (
             <div key={msg.id} className="text-break mb-2">
-              <b>{msg.username}</b>:{msg.body}
+              <b>{msg.username}</b>: {msg.body}
             </div>
           ))}
         </div>
