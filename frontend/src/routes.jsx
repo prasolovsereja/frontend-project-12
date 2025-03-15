@@ -3,7 +3,7 @@ import NotFound from "./pages/NotFound.jsx";
 import LoginPage from './pages/LoginPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import PrivateRoute from "./utils/PrivateRoute.jsx";
-
+import SignUpPage from './pages/SignUp.jsx';
 
 const AppRouter = () => {
   return (
@@ -18,6 +18,7 @@ const AppRouter = () => {
       />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFound />} />
+      <Route path='/signup' element={<SignUpPage />} />
     </Routes>
   );
 };
