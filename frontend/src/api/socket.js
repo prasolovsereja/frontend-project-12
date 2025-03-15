@@ -1,7 +1,8 @@
 import { io } from 'socket.io-client';
+import { WS_URL } from '../../config.js';
 
 const token = localStorage.getItem('token');
-const socket = io('http://localhost:5001', {
+const socket = io(WS_URL, {
   auth: { token },
   transports: ["websocket"],
 });

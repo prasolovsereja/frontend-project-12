@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { API_URL } from '../../config.js';
 
 export const messagesApi = createApi({
   reducerPath: "messagesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001/api/v1/messages",
+    baseUrl: `${API_URL}/api/v1/messages`,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
 
