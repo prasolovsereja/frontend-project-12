@@ -9,11 +9,11 @@ export default defineConfig({
     proxy: {
       // Проксируем запросы к API
       '/api': {
-        target: import.meta.env.VITE_API_URL || 'http://localhost:5001',
+        target: process.env.VITE_API_URL || 'http://localhost:5001',
       },
       // Проксируем WebSocket соединения
       '/socket.io': {
-        target: import.meta.env.VITE_WS_URL || 'ws://localhost:5001',
+        target: process.env.WS_API_URL || 'ws://localhost:5001',
         ws: true,
         rewriteWsOrigin: true,
       },
