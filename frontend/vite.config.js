@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { API_URL, WS_URL } from './config.js'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,11 +10,11 @@ export default defineConfig({
     proxy: {
       // Проксируем запросы к API
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:5001',
+        target: API_URL,
       },
       // Проксируем WebSocket соединения
       '/socket.io': {
-        target: process.env.WS_API_URL || 'ws://localhost:5001',
+        target: WS_URL,
         ws: true,
         rewriteWsOrigin: true,
       },
