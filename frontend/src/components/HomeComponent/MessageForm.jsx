@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { useNewMessageMutation } from "../../api/messagesApi";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
+  const { t } = useTranslation();
   const selectedChannel = useSelector(
     (state) => state.channels.selectedChannel
   );
@@ -14,7 +16,7 @@ const MessageForm = () => {
     e.preventDefault();
 
     if (message.trim() === "") return;
-
+    
     try {
       await newMessage({
         body: message,
@@ -23,7 +25,7 @@ const MessageForm = () => {
       });
       setMessage("");
     } catch (error) {
-      console.error("Ошибка при отправке сообщения:", error);
+      console.error(t('errors.messageSubmitError'), error);
     }
   };
 
@@ -38,7 +40,7 @@ const MessageForm = () => {
           type="text"
           name="body"
           aria-label="Новое сообщение"
-          placeholder="Введите сообщение..."
+          placeholder={t('messages.messageInputPlaceholder')}
           className="border-0 p-0 ps-2 form-control"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

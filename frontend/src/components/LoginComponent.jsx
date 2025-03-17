@@ -2,16 +2,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import { login } from "../slices/authSlice.js";
 import api from "../api/axios.js";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object({
-    username: Yup.string().required("Введите имя пользователя"),
-    password: Yup.string().required("Введите пароль"),
+    username: Yup.string().required(t('validation.required')),
+    password: Yup.string().required(t('validation.required')),
   });
 
   return (
@@ -20,7 +22,7 @@ const Login = () => {
         <div className="col-12 col-md-8  col-xxl-6">
           <div className="card shadow-sm">
             <div className='card-body row p-5'>
-              <h2 className="text-center mb-4">Войти</h2>
+              <h2 className="text-center mb-4">{t('interfaces.login')}</h2>
               <Formik
                 initialValues={{ username: "", password: "" }}
                 validationSchema={validationSchema}
@@ -35,43 +37,43 @@ const Login = () => {
                       "Ошибка входа:",
                       error.response?.data || error.message
                     );
-                    setErrors({ password: "Неверный логин или пароль" });
+                    setErrors({ password: t('validation.wrongPassword') });
                     console.log(values);
                   } finally {
                     setSubmitting(false);
                   }
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, errors, touched }) => (
                   <Form>
                     <div className="form-floating mb-3">
                       <Field
                         type="text"
                         name="username"
-                        className="form-control"
+                        className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`}
                         id="username"
-                        placeholder="Ваш ник"
+                        placeholder={t('info.nickname')}
                       />
-                      <label htmlFor="username">Ваш ник</label>
+                      <label htmlFor="username">{t('info.nickname')}</label>
                       <ErrorMessage
                         name="username"
                         component="div"
-                        className="text-danger"
+                        className="invalid-tooltip"
                       />
                     </div>
                     <div className="form-floating mb-3">
                       <Field
                         type="password"
                         name="password"
-                        className="form-control"
+                        className={`form-control ${errors.password && touched.password ? 'is-invalid' : ''}`}
                         id="password"
-                        placeholder="Пароль"
+                        placeholder={t('info.password')}
                       />
-                      <label htmlFor="password">Пароль</label>
+                      <label htmlFor="password">{t('info.password')}</label>
                       <ErrorMessage
                         name="password"
                         component="div"
-                        className="text-danger"
+                        className="invalid-tooltip"
                       />
                     </div>
                     <button
@@ -79,7 +81,7 @@ const Login = () => {
                       className="btn btn-primary w-100"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Вход..." : "Войти"}
+                      {t('interfaces.login')}
                     </button>
                   </Form>
                 )}
@@ -87,8 +89,8 @@ const Login = () => {
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>Нет аккаунта?</span>
-                <a href="/signup">Регистрация</a>
+                <span>{t('info.noAccount')}</span>
+                <a href="/signup">{t('interfaces.registration')}</a>
               </div>
             </div>
           </div>

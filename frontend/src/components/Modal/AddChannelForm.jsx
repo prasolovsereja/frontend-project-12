@@ -1,13 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { useNewChannelMutation } from "../../api/channelsApi.js";
 import { getChannelNameSchema } from "../../utils/modalValidation.js";
 import { closeModal } from '../../slices/modalSlice.js';
 
+
 const AddChannelForm = () => {
   const dispatch = useDispatch();
   const [newChannel] = useNewChannelMutation();
+  const { t } = useTranslation()
   const channels = useSelector((state) => state.channels.channels);
   const channelsNames = channels.map((ch) => ch.name);
   
@@ -25,8 +28,8 @@ const AddChannelForm = () => {
           resetForm();
           dispatch(closeModal());
         } catch (error) {
-          setErrors({ name: "Обязательное поле" });
-          console.error("Ошибка добавления канала:", error);
+          setErrors({ name: t('validation.required') });
+          console.error(t('errors.addChannelError'), error);
         } finally {
           setSubmitting(false);
         }
@@ -43,7 +46,7 @@ const AddChannelForm = () => {
               }`}
             />
             <label htmlFor="name" className="visually-hidden">
-              Имя канала
+              {t('channels.name')}
             </label>
             <ErrorMessage
               name="name"
@@ -51,8 +54,8 @@ const AddChannelForm = () => {
               className="invalid-feedback"
             />
             <div className='d-flex justify-content-end'>
-              <button type='button' className='me-2 btn btn-secondary' onClick={() => dispatch(closeModal())}>Отменить</button>
-              <button type='submit' className='btn btn-primary'>Отправить</button>
+              <button type='button' className='me-2 btn btn-secondary' onClick={() => dispatch(closeModal())}>{t('interfaces.cancel')}</button>
+              <button type='submit' className='btn btn-primary'>{t('interfaces.submit')}</button>
             </div>
           </div>
         </Form>

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { getChannels } from "../../../api/channelsApi.js";
 import {
   addChannel,
@@ -14,6 +15,7 @@ import ChannelsAction from "./ChannelsAction.jsx";
 
 const ChannelsList = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.channels);
   const { data, isLoading, error } = getChannels();
 
@@ -43,8 +45,8 @@ const ChannelsList = () => {
     };
   }, [dispatch]);
 
-  if (isLoading) return <p>Загрузка каналов...</p>;
-  if (error) return <p>Ошибка загрузки каналов</p>;
+  if (isLoading) return <p>{t('info.channelsLoading')}</p>;
+  if (error) return <p className='text-center'>{t('errors.channelsLoadingError')}</p>;
   return (
     <ul
       id="channels-box"

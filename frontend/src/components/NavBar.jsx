@@ -1,16 +1,18 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { logout } from "../slices/authSlice.js";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
         <a className="navbar-brand" href="/">
-          Hexlet chat
+          {t('chat.header')}
         </a>
         {isAuthenticated ? (
           <button
@@ -18,7 +20,7 @@ const NavBar = () => {
             className="btn btn-primary"
             onClick={() => dispatch(logout())}
           >
-            Выйти
+            {t('interfaces.logOut')}
           </button>
         ) : null}
       </div>

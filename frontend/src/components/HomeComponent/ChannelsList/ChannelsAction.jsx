@@ -1,16 +1,19 @@
 import { useState, useId, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import ChannelButton from "./ChannelButton.jsx";
 import { openModal } from "../../../slices/modalSlice.js";
 
 const ChannelsAction = ({ channel }) => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const dropdownId = useId();
   const dropdownRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const selectedChannel = useSelector(
     (state) => state.channels.selectedChannel
   );
-  const dispatch = useDispatch();
+ 
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -54,7 +57,7 @@ const ChannelsAction = ({ channel }) => {
         ${isMenuOpen ? "show" : ""}`}
         onClick={toggleMenu}
       >
-        <span className="visually-hidden">Упарвление каналом ::after</span>
+        <span className="visually-hidden">{t('channels.manageChannel')}</span>
       </button>
       {isMenuOpen && (
         <div
@@ -79,7 +82,7 @@ const ChannelsAction = ({ channel }) => {
               dispatch(openModal({ type: "remove", channel }));
             }}
           >
-            Удалить
+            {t('interfaces.delete')}
           </a>
           <a
             data-rr-ui-dropdown-item
@@ -88,7 +91,7 @@ const ChannelsAction = ({ channel }) => {
             href="#"
             onClick={() => dispatch(openModal({ type: "rename", channel }))}
           >
-            Переименовать
+            {t('interfaces.rename')}
           </a>
         </div>
       )}

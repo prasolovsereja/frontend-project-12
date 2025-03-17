@@ -1,17 +1,20 @@
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { closeModal } from "../../slices/modalSlice.js";
 import AddChannelForm from "./AddChannelForm.jsx";
 import RemoveChannelForm from './RemoveChannelForm.jsx';
 import RenameChannelForm from './RenameChannelForm.jsx';
 
+
 const Modal = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { isOpen, type, channel } = useSelector((state) => state.modal);
   const modalTitles = {
-    add: "Добавить канал",
-    remove: "Удалить канал",
-    rename: "Переименовать канал",
+    add: t('channels.addChannel'),
+    remove: t('channels.deleteChannel'),
+    rename: t('channels.renameChannel'),
   };
 
   if (!isOpen) return null;

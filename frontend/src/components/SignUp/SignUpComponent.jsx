@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import api from "../../api/axios.js";
@@ -8,18 +9,19 @@ import { login } from '../../slices/authSlice.js';
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, "Имя пользователя должно содержать от 3 до 20 символов")
-      .max(20, "Имя пользователя должно содержать от 3 до 20 символов")
-      .required("Это обязательное поле"),
+      .min(3, t('validation.min'))
+      .max(20, t('validation.max'))
+      .required(t('validation.required')),
     password: Yup.string()
-      .min(6, "Пароль должен содержать не менее 6 символов")
-      .required("Это обязательное поле"),
+      .min(6, t('validation.minPassword'))
+      .required(t('validation.required')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-      .required("Это обязательное поле"),
+      .oneOf([Yup.ref('password'), null], t('validation.confirmPassword'))
+      .required(t('validation.required')),
   });
 
   return (
@@ -43,10 +45,10 @@ const SignUp = () => {
                     navigate('/');
                   } catch (error) {
                     setErrors({
-                      username: 'Такой пользователь уже существует',
+                      username: t('validation.uniqueUser'),
                     });
                     console.error(
-                      'Такой пользователь уже существует',
+                      t('validation.uniqueUser'),
                       error.response?.data || error.message
                     );
                   } finally {
@@ -56,16 +58,16 @@ const SignUp = () => {
               >
                 {({ isSubmitting, errors, touched }) => (
                   <Form>
-                    <h1 className='text-center mb-4'>Регистрация</h1>
+                    <h1 className='text-center mb-4'>{t('interfaces.registration')}</h1>
                     <div className='form-floating mb-3'>
                       <Field 
                         type="text"
                         name="username"
                         className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`}
                         id='username'
-                        placeholder='Имя пользователя'
+                        placeholder={t('info.username')}
                       />
-                      <label htmlFor="username">Имя пользователя</label>
+                      <label htmlFor="username">{t('info.username')}</label>
                       <ErrorMessage
                         name='username'
                         component='div'
@@ -79,9 +81,9 @@ const SignUp = () => {
                         name="password"
                         className={`form-control ${errors.password && touched.password ? 'is-invalid' : ''}`}
                         id='password'
-                        placeholder='Пароль'
+                        placeholder={t('info.password')}
                       />
-                      <label htmlFor="password">Пароль</label>
+                      <label htmlFor="password">{t('info.password')}</label>
                       <ErrorMessage
                         name='password'
                         component='div'
@@ -95,9 +97,9 @@ const SignUp = () => {
                         name="confirmPassword"
                         className={`form-control ${errors.confirmPassword && touched.confirmPassword ? 'is-invalid' : ''}`}
                         id='confirmPassword'
-                        placeholder='Подтвердите пароль'
+                        placeholder={t('info.confirmPassword')}
                       />
-                      <label htmlFor="confirmPassword">Подтвердите пароль</label>
+                      <label htmlFor="confirmPassword">{t('info.confirmPassword')}</label>
                       <ErrorMessage
                         name='confirmPassword'
                         component='div'
@@ -110,7 +112,7 @@ const SignUp = () => {
                       className='btn btn-outline-primary w-100'
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Регистрация...' : 'Зарегистрироваться'}
+                      {t('interfaces.signup')}
                     </button>
                   </Form>
                 )}
