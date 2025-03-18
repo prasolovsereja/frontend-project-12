@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { getChannels } from "../../../api/channelsApi.js";
 import {
   addChannel,
@@ -12,6 +13,7 @@ import {
 import socket from "../../../api/socket.js";
 import ChannelButton from "./ChannelButton.jsx";
 import ChannelsAction from "./ChannelsAction.jsx";
+
 
 const ChannelsList = () => {
   const dispatch = useDispatch();
@@ -45,8 +47,11 @@ const ChannelsList = () => {
     };
   }, [dispatch]);
 
-  if (isLoading) return <p>{t('info.channelsLoading')}</p>;
-  if (error) return <p className='text-center'>{t('errors.channelsLoadingError')}</p>;
+  if (isLoading) return <p>{t("info.channelsLoading")}</p>;
+  if (error) {
+    toast.error(t("errors.channelsLoadingError"));
+    return <p className="text-center">{t("errors.channelsLoadingError")}</p>;
+  }
   return (
     <ul
       id="channels-box"

@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { getMessages } from "../../api/messagesApi.js";
 import { addMessage, setMessages } from "../../slices/messagesSlice.js";
 import MessageForm from "./MessageForm.jsx";
 import socket from "../../api/socket.js";
+
 
 const MessagesBox = () => {
   const dispatch = useDispatch();
@@ -31,8 +33,15 @@ const MessagesBox = () => {
     };
   }, [dispatch]);
 
-  if (isLoading) return <p>{t('info.messagesLoading')}</p>;
-  if (error) return <p className='col p-0 h-100 text-center'>{t('errors.messagesLoadingError')}</p>;
+  if (isLoading) return <p>{t("info.messagesLoading")}</p>;
+  if (error) {
+    toast.error(t("errors.messagesLoadingError"));
+    return (
+      <p className="col p-0 h-100 text-center">
+        {t("errors.messagesLoadingError")}
+      </p>
+    );
+  }
 
   const filteredMessages = messages?.filter(
     (msg) => msg.channelId === selectedChannel?.id
@@ -45,7 +54,9 @@ const MessagesBox = () => {
           <p className="m-0">
             <b># {selectedChannel && selectedChannel.name}</b>
           </p>
-          <span className="text-muted">{t('messages.count', { count: filteredMessages.length})}</span>
+          <span className="text-muted">
+            {t("messages.count", { count: filteredMessages.length })}
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {filteredMessages?.map((msg) => (

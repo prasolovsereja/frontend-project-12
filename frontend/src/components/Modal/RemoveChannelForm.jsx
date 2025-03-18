@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useRemoveChannelMutation } from "../../api/channelsApi.js";
 import { closeModal } from "../../slices/modalSlice.js";
 import { setSelectedChannel } from "../../slices/channelsSlice.js";
+
 
 
 const RemoveChannelForm = ({ channel }) => {
@@ -16,8 +18,10 @@ const RemoveChannelForm = ({ channel }) => {
       await removeChannel(channel.id).unwrap();
       dispatch(closeModal());
       dispatch(setSelectedChannel(channels[0]));
+      toast.success(t('toasts.deleteSuccess'));
     } catch (error) {
       console.error(t('errors.channelDeleteError'), error);
+      toast.error(t('errors.channelDeleteError'));
     }
   };
 

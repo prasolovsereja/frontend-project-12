@@ -59,5 +59,10 @@ export default {
       channelDeleteError: 'Ошибка удаления канала',
       channelRenameError: 'Ошибка изменения имени',
     },
+    toasts: {
+      addSuccess: 'Канал создан',
+      deleteSuccess: 'Канал удален',
+      renameSuccess: 'Канал переименован',
+    }
   },
 };

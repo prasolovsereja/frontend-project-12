@@ -1,10 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useNewChannelMutation } from "../../api/channelsApi.js";
 import { getChannelNameSchema } from "../../utils/modalValidation.js";
 import { closeModal } from '../../slices/modalSlice.js';
+
 
 
 const AddChannelForm = () => {
@@ -26,10 +28,12 @@ const AddChannelForm = () => {
         try {
           await newChannel({ name: values.name }).unwrap();
           resetForm();
+          toast.success(t('toasts.addSuccess'));
           dispatch(closeModal());
         } catch (error) {
           setErrors({ name: t('validation.required') });
           console.error(t('errors.addChannelError'), error);
+          toasts.error(t('errors.addChannelError'));
         } finally {
           setSubmitting(false);
         }

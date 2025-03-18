@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useNewMessageMutation } from "../../api/messagesApi";
 
 const MessageForm = () => {
@@ -26,6 +27,7 @@ const MessageForm = () => {
       setMessage("");
     } catch (error) {
       console.error(t('errors.messageSubmitError'), error);
+      toast.error(t('errors.messageSubmitError'));
     }
   };
 
