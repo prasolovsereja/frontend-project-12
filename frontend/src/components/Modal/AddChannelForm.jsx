@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import { useNewChannelMutation } from "../../api/channelsApi.js";
 import { getChannelNameSchema } from "../../utils/modalValidation.js";
 import { closeModal } from '../../slices/modalSlice.js';
@@ -10,6 +11,8 @@ import { closeModal } from '../../slices/modalSlice.js';
 
 
 const AddChannelForm = () => {
+  leoProfanity.loadDictionary('ru');
+
   const dispatch = useDispatch();
   const [newChannel] = useNewChannelMutation();
   const { t } = useTranslation()
@@ -26,7 +29,7 @@ const AddChannelForm = () => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
         try {
-          await newChannel({ name: values.name }).unwrap();
+          await newChannel({ name: leoProfanity.clean(values.name) }).unwrap();
           resetForm();
           toast.success(t('toasts.addSuccess'));
           dispatch(closeModal());
