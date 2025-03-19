@@ -3,7 +3,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { Provider } from "react-redux";
 import { ErrorBoundary, Provider as RollbarProvider } from "@rollbar/react";
 import { BrowserRouter } from "react-router-dom";
-import rollbar, { rollbarConfig } from "./rollbar.js";
+import { rollbarConfig } from "./rollbar.js";
 import store from "./slices/index.js";
 import App from "./App.jsx";
 import resources from "./locales/index.js";

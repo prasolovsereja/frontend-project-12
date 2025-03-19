@@ -45,7 +45,9 @@ const SignUp = () => {
                     navigate('/');
                   } catch (error) {
                     setErrors({
-                      username: t('validation.uniqueUser'),
+                      username: ' ',
+                      password: ' ',
+                      confirmPassword: t('validation.uniqueUser'),
                     });
                     console.error(
                       t('validation.uniqueUser'),
