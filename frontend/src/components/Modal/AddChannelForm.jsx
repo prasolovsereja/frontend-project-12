@@ -7,6 +7,7 @@ import leoProfanity from 'leo-profanity';
 import { useNewChannelMutation } from "../../api/channelsApi.js";
 import { getChannelNameSchema } from "../../utils/modalValidation.js";
 import { closeModal } from '../../slices/modalSlice.js';
+import { setSelectedChannel } from '../../slices/channelsSlice.js';
 
 
 
@@ -30,9 +31,10 @@ const AddChannelForm = () => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
         try {
-          await newChannel({ name: leoProfanity.clean(values.name) }).unwrap();
+          const response = await newChannel({ name: leoProfanity.clean(values.name) }).unwrap();
           resetForm();
           toast.success(t('toasts.addSuccess'));
+          dispatch(setSelectedChannel(response));
           dispatch(closeModal());
         } catch (error) {
           setErrors({ name: t('validation.required') });

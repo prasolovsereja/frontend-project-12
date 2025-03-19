@@ -31,7 +31,6 @@ const ChannelsList = () => {
   useEffect(() => {
     socket.on("newChannel", (channel) => {
       dispatch(addChannel(channel));
-      dispatch(setSelectedChannel(channel));
     });
 
     socket.on("removeChannel", ({ id }) => {
