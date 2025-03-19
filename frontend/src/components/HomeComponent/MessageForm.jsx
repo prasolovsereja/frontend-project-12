@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
-import { useNewMessageMutation } from "../../api/messagesApi";
+import { useNewMessageMutation } from '../../api/messagesApi';
 
 const MessageForm = () => {
   leoProfanity.loadDictionary('ru');
   leoProfanity.loadDictionary('en');
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { t } = useTranslation();
   const selectedChannel = useSelector(
-    (state) => state.channels.selectedChannel
+    (state) => state.channels.selectedChannel,
   );
   const username = useSelector((state) => state.auth.username);
   const [newMessage] = useNewMessageMutation();
@@ -20,8 +20,8 @@ const MessageForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (message.trim() === "") return;
-    
+    if (message.trim() === '') return;
+
     const profanityMessage = leoProfanity.clean(message);
 
     try {
@@ -30,7 +30,7 @@ const MessageForm = () => {
         channelId: selectedChannel.id,
         username,
       });
-      setMessage("");
+      setMessage('');
     } catch (error) {
       console.error(t('errors.messageSubmitError'), error);
       toast.error(t('errors.messageSubmitError'));
@@ -41,7 +41,7 @@ const MessageForm = () => {
     <form noValidate className="py-1 border rounded-2" onSubmit={handleSubmit}>
       <div
         className={`input-group ${
-          message.trim().length === 0 ? "has-validation" : ""
+          message.trim().length === 0 ? 'has-validation' : ''
         }`}
       >
         <input
@@ -58,7 +58,7 @@ const MessageForm = () => {
           className="btn btn-group-vertical"
           disabled={message.trim().length === 0}
         >
-          {"->"}
+          {'->'}
         </button>
       </div>
     </form>

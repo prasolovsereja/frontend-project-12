@@ -1,6 +1,6 @@
-import ChannelsList from "./ChannelsList/ChannelsList.jsx";
-import MessagesBox from "./MessageBox.jsx";
-import AddChannelComponent from "./AddChannelComponent.jsx";
+import ChannelsList from './ChannelsList/ChannelsList.jsx';
+import MessagesBox from './MessageBox.jsx';
+import AddChannelComponent from './AddChannelComponent.jsx';
 
 const Home = () => {
   return (

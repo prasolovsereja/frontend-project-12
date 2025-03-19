@@ -1,19 +1,18 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { getMessages } from "../../api/messagesApi.js";
-import { addMessage, setMessages } from "../../slices/messagesSlice.js";
-import MessageForm from "./MessageForm.jsx";
-import socket from "../../api/socket.js";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { getMessages } from '../../api/messagesApi.js';
+import { addMessage, setMessages } from '../../slices/messagesSlice.js';
+import MessageForm from './MessageForm.jsx';
+import socket from '../../api/socket.js';
 
 const MessagesBox = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const messages = useSelector((state) => state.messages.messages);
   const selectedChannel = useSelector(
-    (state) => state.channels.selectedChannel
+    (state) => state.channels.selectedChannel,
   );
   const { data: initialMessages, isLoading, error } = getMessages();
 
@@ -24,27 +23,27 @@ const MessagesBox = () => {
   }, [dispatch, initialMessages]);
 
   useEffect(() => {
-    socket.on("newMessage", (message) => {
+    socket.on('newMessage', (message) => {
       dispatch(addMessage(message));
     });
 
     return () => {
-      socket.off("newMessage");
+      socket.off('newMessage');
     };
   }, [dispatch]);
 
-  if (isLoading) return <p>{t("info.messagesLoading")}</p>;
+  if (isLoading) return <p>{t('info.messagesLoading')}</p>;
   if (error) {
-    toast.error(t("errors.messagesLoadingError"));
+    toast.error(t('errors.messagesLoadingError'));
     return (
       <p className="col p-0 h-100 text-center">
-        {t("errors.messagesLoadingError")}
+        {t('errors.messagesLoadingError')}
       </p>
     );
   }
 
   const filteredMessages = messages?.filter(
-    (msg) => msg.channelId === selectedChannel?.id
+    (msg) => msg.channelId === selectedChannel?.id,
   );
 
   return (
@@ -55,7 +54,7 @@ const MessagesBox = () => {
             <b># {selectedChannel && selectedChannel.name}</b>
           </p>
           <span className="text-muted">
-            {t("messages.count", { count: filteredMessages.length })}
+            {t('messages.count', { count: filteredMessages.length })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">

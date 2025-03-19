@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { logout } from "../slices/authSlice.js";
+import { logout } from '../slices/authSlice.js';
 
 const NavBar = () => {
   const dispatch = useDispatch();

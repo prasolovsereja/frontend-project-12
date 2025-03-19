@@ -63,6 +63,6 @@ export default {
       addSuccess: 'Канал создан',
       deleteSuccess: 'Канал удалён',
       renameSuccess: 'Канал переименован',
-    }
+    },
   },
 };

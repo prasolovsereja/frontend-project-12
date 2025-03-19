@@ -1,15 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useRemoveChannelMutation } from "../../api/channelsApi.js";
-import { closeModal } from "../../slices/modalSlice.js";
-import { setSelectedChannel } from "../../slices/channelsSlice.js";
-
-
+import { useRemoveChannelMutation } from '../../api/channelsApi.js';
+import { closeModal } from '../../slices/modalSlice.js';
+import { setSelectedChannel } from '../../slices/channelsSlice.js';
 
 const RemoveChannelForm = ({ channel }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [removeChannel] = useRemoveChannelMutation();
   const channels = useSelector((state) => state.channels.channels);
 

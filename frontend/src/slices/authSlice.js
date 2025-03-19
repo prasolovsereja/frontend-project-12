@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const getToken = () => localStorage.getItem('token');
@@ -6,7 +8,7 @@ const getUsername = () => localStorage.getItem('username');
 const initialState = {
   token: getToken() || null,
   isAuthenticated: !!getToken(),
-  username: getUsername() || null, 
+  username: getUsername() || null,
 };
 
 const authSlice = createSlice({

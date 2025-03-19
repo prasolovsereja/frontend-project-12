@@ -7,15 +7,15 @@ const HomePage = () => {
   const { isOpen } = useSelector((state) => state.modal);
   return (
     <>
-    <div className='h-100'>
-      <div className="d-flex flex-column h-100">
-        <NavBar />
-        <Home />
+      <div className="h-100">
+        <div className="d-flex flex-column h-100">
+          <NavBar />
+          <Home />
+        </div>
       </div>
-    </div>
-    {isOpen && <Modal />}
+      {isOpen && <Modal />}
     </>
-  )
+  );
 };
 
 export default HomePage;

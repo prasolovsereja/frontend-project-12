@@ -3,15 +3,17 @@ import { setSelectedChannel } from '../../../slices/channelsSlice.js';
 
 const ChannelButton = ({ channel }) => {
   const dispatch = useDispatch();
-  const selectedChannel = useSelector((state) => state.channels.selectedChannel);
+  const selectedChannel = useSelector(
+    (state) => state.channels.selectedChannel,
+  );
 
   return (
     <button
       type="button"
       className={`w-100 rounded-0 text-start btn ${
         selectedChannel && selectedChannel.id === channel.id
-          ? "btn-secondary"
-          : ""
+          ? 'btn-secondary'
+          : ''
       }`}
       onClick={() => dispatch(setSelectedChannel(channel))}
     >

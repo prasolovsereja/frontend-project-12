@@ -1,5 +1,5 @@
-import * as Yup from "yup";
-import { useTranslation } from "react-i18next";
+import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 export const getChannelNameSchema = (channels) => {
   const { t } = useTranslation();

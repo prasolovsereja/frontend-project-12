@@ -1,11 +1,10 @@
-import ReactDOM from "react-dom";
-import { useSelector, useDispatch } from "react-redux";
+import ReactDOM from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { closeModal } from "../../slices/modalSlice.js";
-import AddChannelForm from "./AddChannelForm.jsx";
+import { closeModal } from '../../slices/modalSlice.js';
+import AddChannelForm from './AddChannelForm.jsx';
 import RemoveChannelForm from './RemoveChannelForm.jsx';
 import RenameChannelForm from './RenameChannelForm.jsx';
-
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -19,18 +18,18 @@ const Modal = () => {
 
   if (!isOpen) return null;
   const handleOutsideClick = (e) => {
-    if (e.target.classList.contains("modal-backdrop")) {
+    if (e.target.classList.contains('modal-backdrop')) {
       dispatch(closeModal());
     }
   };
 
   const renderContent = () => {
     switch (type) {
-      case "add":
+      case 'add':
         return <AddChannelForm />;
-      case "remove":
+      case 'remove':
         return <RemoveChannelForm channel={channel} />;
-      case "rename":
+      case 'rename':
         return <RenameChannelForm channel={channel} />;
       default:
         return null;
@@ -38,13 +37,16 @@ const Modal = () => {
   };
   return ReactDOM.createPortal(
     <>
-      <div className="fade modal-backdrop show" onClick={handleOutsideClick}></div>
+      <div
+        className="fade modal-backdrop show"
+        onClick={handleOutsideClick}
+      ></div>
       <div
         role="dialog"
         aria-modal="true"
         className="fade modal show"
         tabIndex={-1}
-        style={{ display: "block" }}
+        style={{ display: 'block' }}
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -65,7 +67,7 @@ const Modal = () => {
         </div>
       </div>
     </>,
-    document.getElementById("modal-root")
+    document.getElementById('modal-root'),
   );
 };
 

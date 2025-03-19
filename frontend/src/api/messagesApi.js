@@ -1,24 +1,24 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '../../config.js';
 
 export const messagesApi = createApi({
-  reducerPath: "messagesApi",
+  reducerPath: 'messagesApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/api/v1/messages`,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getMessages: builder.query({ query: () => "" }),
+    getMessages: builder.query({ query: () => '' }),
     newMessage: builder.mutation({
       query: (message) => ({
-        method: "POST",
+        method: 'POST',
         body: message,
       }),
     }),

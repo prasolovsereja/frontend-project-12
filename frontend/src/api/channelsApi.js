@@ -1,38 +1,38 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '../../config.js';
 
 export const channelsApi = createApi({
-  reducerPath: "channelsApi",
+  reducerPath: 'channelsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/api/v1/channels`,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getChannels: builder.query({ query: () => "" }),
+    getChannels: builder.query({ query: () => '' }),
     newChannel: builder.mutation({
       query: (channel) => ({
-        method: "POST",
+        method: 'POST',
         body: channel,
       }),
     }),
     renameChannel: builder.mutation({
       query: ({ id, name }) => ({
         url: `/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: { name },
       }),
     }),
     removeChannel: builder.mutation({
       query: (id) => ({
         url: `/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
     }),
   }),

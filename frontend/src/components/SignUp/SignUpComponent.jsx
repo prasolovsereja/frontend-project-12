@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import api from "../../api/axios.js";
+import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import api from '../../api/axios.js';
 import { login } from '../../slices/authSlice.js';
 
 const SignUp = () => {
@@ -32,9 +32,9 @@ const SignUp = () => {
             <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Formik
                 initialValues={{
-                  username: "",
-                  password: "",
-                  confirmPassword: "",
+                  username: '',
+                  password: '',
+                  confirmPassword: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
@@ -51,7 +51,7 @@ const SignUp = () => {
                     });
                     console.error(
                       t('validation.uniqueUser'),
-                      error.response?.data || error.message
+                      error.response?.data || error.message,
                     );
                   } finally {
                     setSubmitting(false);
@@ -60,56 +60,72 @@ const SignUp = () => {
               >
                 {({ isSubmitting, errors, touched }) => (
                   <Form>
-                    <h1 className='text-center mb-4'>{t('interfaces.registration')}</h1>
-                    <div className='form-floating mb-3'>
-                      <Field 
+                    <h1 className="text-center mb-4">
+                      {t('interfaces.registration')}
+                    </h1>
+                    <div className="form-floating mb-3">
+                      <Field
                         type="text"
                         name="username"
-                        className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`}
-                        id='username'
+                        className={`form-control ${
+                          errors.username && touched.username
+                            ? 'is-invalid'
+                            : ''
+                        }`}
+                        id="username"
                         placeholder={t('info.username')}
                       />
                       <label htmlFor="username">{t('info.username')}</label>
                       <ErrorMessage
-                        name='username'
-                        component='div'
-                        className='invalid-tooltip'
+                        name="username"
+                        component="div"
+                        className="invalid-tooltip"
                       />
                     </div>
-                    <div className='form-floating mb-3'>
-                      <Field 
+                    <div className="form-floating mb-3">
+                      <Field
                         type="password"
                         name="password"
-                        className={`form-control ${errors.password && touched.password ? 'is-invalid' : ''}`}
-                        id='password'
+                        className={`form-control ${
+                          errors.password && touched.password
+                            ? 'is-invalid'
+                            : ''
+                        }`}
+                        id="password"
                         placeholder={t('info.password')}
                       />
                       <label htmlFor="password">{t('info.password')}</label>
                       <ErrorMessage
-                        name='password'
-                        component='div'
-                        className='invalid-tooltip'
+                        name="password"
+                        component="div"
+                        className="invalid-tooltip"
                       />
                     </div>
-                    <div className='form-floating mb-3'>
-                      <Field 
+                    <div className="form-floating mb-3">
+                      <Field
                         type="password"
                         name="confirmPassword"
-                        className={`form-control ${errors.confirmPassword && touched.confirmPassword ? 'is-invalid' : ''}`}
-                        id='confirmPassword'
+                        className={`form-control ${
+                          errors.confirmPassword && touched.confirmPassword
+                            ? 'is-invalid'
+                            : ''
+                        }`}
+                        id="confirmPassword"
                         placeholder={t('info.confirmPassword')}
                       />
-                      <label htmlFor="confirmPassword">{t('info.confirmPassword')}</label>
+                      <label htmlFor="confirmPassword">
+                        {t('info.confirmPassword')}
+                      </label>
                       <ErrorMessage
-                        name='confirmPassword'
-                        component='div'
-                        className='invalid-tooltip'
-                        placement='right'
+                        name="confirmPassword"
+                        component="div"
+                        className="invalid-tooltip"
+                        placement="right"
                       />
                     </div>
                     <button
-                      type='submit'
-                      className='btn btn-outline-primary w-100'
+                      type="submit"
+                      className="btn btn-outline-primary w-100"
                       disabled={isSubmitting}
                     >
                       {t('interfaces.signup')}
