@@ -7,6 +7,7 @@ import { useNewMessageMutation } from "../../api/messagesApi";
 
 const MessageForm = () => {
   leoProfanity.loadDictionary('ru');
+  leoProfanity.loadDictionary('en');
 
   const [message, setMessage] = useState("");
   const { t } = useTranslation();

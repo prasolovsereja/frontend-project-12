@@ -12,6 +12,7 @@ import { closeModal } from '../../slices/modalSlice.js';
 
 const AddChannelForm = () => {
   leoProfanity.loadDictionary('ru');
+  leoProfanity.loadDictionary('en');
 
   const dispatch = useDispatch();
   const [newChannel] = useNewChannelMutation();
