@@ -61,7 +61,7 @@ export default {
     },
     toasts: {
       addSuccess: 'Канал создан',
-      deleteSuccess: 'Канал удален',
+      deleteSuccess: 'Канал удалён',
       renameSuccess: 'Канал переименован',
     }
   },
