@@ -74,7 +74,6 @@ const SignUp = () => {
                         name='username'
                         component='div'
                         className='invalid-tooltip'
-                        placement='right'
                       />
                     </div>
                     <div className='form-floating mb-3'>
@@ -90,7 +89,6 @@ const SignUp = () => {
                         name='password'
                         component='div'
                         className='invalid-tooltip'
-                        placement='right'
                       />
                     </div>
                     <div className='form-floating mb-3'>
