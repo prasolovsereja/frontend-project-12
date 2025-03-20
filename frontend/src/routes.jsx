@@ -9,11 +9,11 @@ const AppRouter = () => (
   <Routes>
     <Route
       path="/"
-      element={
+      element={(
         <PrivateRoute>
           <HomePage />
         </PrivateRoute>
-      }
+      )}
     />
     <Route path="/login" element={<LoginPage />} />
     <Route path="*" element={<NotFound />} />

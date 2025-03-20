@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 
 const getChannelNameSchema = (channels, t) => {
-
   const schema = Yup.string()
     .trim()
     .min(3, t('validation.min'))
