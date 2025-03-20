@@ -39,8 +39,9 @@ const Modal = () => {
     <>
       <div
         className="fade modal-backdrop show"
+        role="presentation"
         onClick={handleOutsideClick}
-      ></div>
+      />
       <div
         role="dialog"
         aria-modal="true"
@@ -60,7 +61,7 @@ const Modal = () => {
                 data-bs-dismiss="modal"
                 className="btn btn-close"
                 onClick={() => dispatch(closeModal())}
-              ></button>
+              />
             </div>
             <div className="modal-body">{renderContent()}</div>
           </div>

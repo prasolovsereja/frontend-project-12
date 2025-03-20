@@ -1,4 +1,9 @@
-import { useState, useId, useEffect, useRef } from 'react';
+import {
+  useState,
+  useId,
+  useEffect,
+  useRef
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import ChannelButton from './ChannelButton.jsx';
@@ -76,8 +81,6 @@ const ChannelsAction = ({ channel }) => {
             data-rr-ui-dropdown-item
             className="dropdown-item"
             type="button"
-            role="button"
-            // href="#"
             onClick={() => {
               dispatch(openModal({ type: 'remove', channel }));
             }}
@@ -88,8 +91,6 @@ const ChannelsAction = ({ channel }) => {
             data-rr-ui-dropdown-item
             className="dropdown-item"
             type="button"
-            role="button"
-            // href="#"
             onClick={() => dispatch(openModal({ type: 'rename', channel }))}
           >
             {t('interfaces.rename')}

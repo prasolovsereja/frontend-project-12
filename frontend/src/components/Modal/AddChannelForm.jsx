@@ -1,4 +1,9 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage
+} from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -39,7 +44,7 @@ const AddChannelForm = () => {
         } catch (error) {
           setErrors({ name: t('validation.required') });
           console.error(t('errors.addChannelError'), error);
-          toasts.error(t('errors.addChannelError'));
+          toast.error(t('errors.addChannelError'));
         } finally {
           setSubmitting(false);
         }

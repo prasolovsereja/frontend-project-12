@@ -7,18 +7,18 @@ import SignUpPage from './pages/SignUp.jsx';
 
 const AppRouter = () => (
   <Routes>
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <HomePage />
-          </PrivateRoute>
-        }
-      />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={<NotFound />} />
-      <Route path="/signup" element={<SignUpPage />} />
-    </Routes>
-)
+    <Route
+      path="/"
+      element={
+        <PrivateRoute>
+          <HomePage />
+        </PrivateRoute>
+      }
+    />
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="*" element={<NotFound />} />
+    <Route path="/signup" element={<SignUpPage />} />
+  </Routes>
+);
 
 export default AppRouter;
