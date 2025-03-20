@@ -5,9 +5,8 @@ import HomePage from './pages/HomePage.jsx';
 import PrivateRoute from './utils/PrivateRoute.jsx';
 import SignUpPage from './pages/SignUp.jsx';
 
-const AppRouter = () => {
-  return (
-    <Routes>
+const AppRouter = () => (
+  <Routes>
       <Route
         path="/"
         element={
@@ -20,7 +19,6 @@ const AppRouter = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/signup" element={<SignUpPage />} />
     </Routes>
-  );
-};
+)
 
 export default AppRouter;

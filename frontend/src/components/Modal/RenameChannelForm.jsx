@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
-import { getChannelNameSchema } from '../../utils/modalValidation.js';
+import getChannelNameSchema from '../../utils/modalValidation.js';
 import { useRenameChannelMutation } from '../../api/channelsApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 
@@ -18,7 +18,7 @@ const RenameChannelForm = ({ channel }) => {
   const channelsNames = channels.map((ch) => ch.name);
 
   const validationSchema = Yup.object({
-    name: getChannelNameSchema(channelsNames),
+    name: getChannelNameSchema(channelsNames, t),
   });
 
   return (

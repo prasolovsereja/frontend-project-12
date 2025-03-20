@@ -3,12 +3,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './routes';
 import './App.css';
 
-const App = () => {
-  return (
-    <>
-      <AppRouter />
-      <ToastContainer position="top-right" autoClose={5000} />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <AppRouter />
+    <ToastContainer position="top-right" autoClose={5000} />
+  </>
+);
+
 export default App;

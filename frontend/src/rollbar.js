@@ -3,4 +3,4 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-export { rollbarConfig };
+export default rollbarConfig;

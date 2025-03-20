@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 import { useNewChannelMutation } from '../../api/channelsApi.js';
-import { getChannelNameSchema } from '../../utils/modalValidation.js';
+import getChannelNameSchema from '../../utils/modalValidation.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { setSelectedChannel } from '../../slices/channelsSlice.js';
 
@@ -20,7 +20,7 @@ const AddChannelForm = () => {
   const channelsNames = channels.map((ch) => ch.name);
 
   const validationSchema = Yup.object({
-    name: getChannelNameSchema(channelsNames),
+    name: getChannelNameSchema(channelsNames, t),
   });
 
   return (

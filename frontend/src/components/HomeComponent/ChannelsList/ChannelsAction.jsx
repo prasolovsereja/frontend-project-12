@@ -60,7 +60,7 @@ const ChannelsAction = ({ channel }) => {
       </button>
       {isMenuOpen && (
         <div
-          x-placement="bottom-start"
+          // x-placement="bottom-start"
           aria-labelledby={dropdownId}
           className={`dropdown-menu ${isMenuOpen ? 'show' : ''}`}
           data-popper-reference-hidden="false"
@@ -72,26 +72,28 @@ const ChannelsAction = ({ channel }) => {
             transform: 'translate3d(-8px, 40px, 0px)',
           }}
         >
-          <a
+          <button
             data-rr-ui-dropdown-item
             className="dropdown-item"
+            type="button"
             role="button"
-            href="#"
+            // href="#"
             onClick={() => {
               dispatch(openModal({ type: 'remove', channel }));
             }}
           >
             {t('interfaces.delete')}
-          </a>
-          <a
+          </button>
+          <button
             data-rr-ui-dropdown-item
             className="dropdown-item"
+            type="button"
             role="button"
-            href="#"
+            // href="#"
             onClick={() => dispatch(openModal({ type: 'rename', channel }))}
           >
             {t('interfaces.rename')}
-          </a>
+          </button>
         </div>
       )}
     </div>

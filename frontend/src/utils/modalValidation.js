@@ -1,8 +1,6 @@
 import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
 
-export const getChannelNameSchema = (channels) => {
-  const { t } = useTranslation();
+const getChannelNameSchema = (channels, t) => {
 
   const schema = Yup.string()
     .trim()
@@ -13,3 +11,5 @@ export const getChannelNameSchema = (channels) => {
 
   return schema;
 };
+
+export default getChannelNameSchema;

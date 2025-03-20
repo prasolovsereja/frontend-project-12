@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -51,7 +53,7 @@ const MessagesBox = () => {
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
-            <b># {selectedChannel && selectedChannel.name}</b>
+            <b>#{selectedChannel && selectedChannel.name}</b>
           </p>
           <span className="text-muted">
             {t('messages.count', { count: filteredMessages.length })}
