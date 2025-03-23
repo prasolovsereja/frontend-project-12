@@ -24,7 +24,7 @@ const ChatPanel = () => {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   if (isLoading) return <p>{t('info.messagesLoading')}</p>;
   if (error) {

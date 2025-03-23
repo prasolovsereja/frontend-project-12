@@ -33,7 +33,6 @@ const Modal = () => {
     <>
       <div
         className="fade modal-backdrop show"
-        role="presentation"
       />
       <div
         role="dialog"
@@ -49,7 +48,7 @@ const Modal = () => {
         onKeyDown={(e) => {
           if (e.key === 'Escape') {
             dispatch(closeAndStyle());
-          };
+          }
         }}
       >
         <div className="modal-dialog modal-dialog-centered">

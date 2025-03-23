@@ -12,7 +12,6 @@ import api from '../../api/axios.js';
 import { loginAndSetup } from '../../slices/authActions.js';
 import routes from '../../api/routes.js';
 
-
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
