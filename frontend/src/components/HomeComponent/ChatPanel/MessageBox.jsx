@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -7,13 +8,18 @@ import { useGetMessagesQuery } from '../../../api/messagesApi.js';
 import { useGetChannelsQuery } from '../../../api/channelsApi.js';
 import MessageForm from './MessageForm.jsx';
 
+
 const ChatPanel = () => {
   const { t } = useTranslation();
   const selectedChannelId = useSelector((state) => state.channels.selectedChannelId);
-  const { data: messages = [], isLoading, error } = useGetMessagesQuery();
+  const { data: messages = [], isLoading, error, refetch } = useGetMessagesQuery();
   const { data: channels = [] } = useGetChannelsQuery();
   const selectedChannel = channels.find((ch) => ch.id === selectedChannelId);
 
+  useEffect(() => {
+    refetch();
+  }, []);
+  
   if (isLoading) return <p>{t('info.messagesLoading')}</p>;
   if (error) {
     toast.error(t('errors.messagesLoadingError'));

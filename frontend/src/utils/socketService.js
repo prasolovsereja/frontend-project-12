@@ -33,7 +33,7 @@ const createSubscribe = () => {
   const { dispatch } = store;
 
   socket.on('newMessage', () => {
-    dispatch(channelsApi.util.invalidateTags(['Messages']));
+    dispatch(messagesApi.util.invalidateTags(['Messages']));
   });
 
   socket.on('newChannel', () => {
