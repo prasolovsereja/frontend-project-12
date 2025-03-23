@@ -9,7 +9,9 @@ import {
   ErrorMessage,
 } from 'formik';
 import api from '../../api/axios.js';
-import { login } from '../../slices/authSlice.js';
+import { loginAndSetup } from '../../slices/authActions.js';
+import routes from '../../api/routes.js';
+
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -44,9 +46,9 @@ const SignUp = () => {
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
                   try {
-                    const response = await api.post('/signup', values);
+                    const response = await api.post(routes.signup, values);
                     const { token, username } = response.data;
-                    dispatch(login({ token, username }));
+                    dispatch(loginAndSetup({ token, username }));
                     navigate('/');
                   } catch (error) {
                     setErrors({

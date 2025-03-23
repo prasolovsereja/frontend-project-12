@@ -5,13 +5,16 @@ import {
   ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import getChannelNameSchema from '../../utils/modalValidation.js';
-import { useRenameChannelMutation } from '../../api/channelsApi.js';
-import { closeModal } from '../../slices/modalSlice.js';
+import {
+  useRenameChannelMutation,
+  useGetChannelsQuery,
+} from '../../api/channelsApi.js';
+import { closeAndStyle } from '../../slices/modalActions.js';
 
 const RenameChannelForm = ({ channel }) => {
   leoProfanity.loadDictionary('ru');
@@ -19,7 +22,7 @@ const RenameChannelForm = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [renameChannel] = useRenameChannelMutation();
-  const channels = useSelector((state) => state.channels.channels);
+  const { data: channels = [] } = useGetChannelsQuery();
   const channelsNames = channels.map((ch) => ch.name);
 
   const validationSchema = Yup.object({
@@ -37,7 +40,7 @@ const RenameChannelForm = ({ channel }) => {
             name: leoProfanity.clean(values.name),
           }).unwrap();
           resetForm();
-          dispatch(closeModal());
+          dispatch(closeAndStyle());
           toast.success(t('toasts.renameSuccess'));
         } catch (error) {
           setErrors({ name: t('validation.required') });
@@ -70,7 +73,7 @@ const RenameChannelForm = ({ channel }) => {
               <button
                 type="button"
                 className="me-2 btn btn-secondary"
-                onClick={() => dispatch(closeModal())}
+                onClick={() => dispatch(closeAndStyle())}
               >
                 {t('interfaces.cancel')}
               </button>

@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { openModal } from '../../slices/modalSlice';
 
-const AddChannelComponent = () => {
+import { openAndStyle } from '../../../slices/modalActions';
+
+const AddChannelButton = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -12,7 +13,7 @@ const AddChannelComponent = () => {
       <button
         type="button"
         className="p-0 text-primary btn btn-group-vertical"
-        onClick={() => dispatch(openModal({ type: 'add' }))}
+        onClick={() => dispatch(openAndStyle({ type: 'add' }))}
       >
         <span>+</span>
       </button>
@@ -20,4 +21,4 @@ const AddChannelComponent = () => {
   );
 };
 
-export default AddChannelComponent;
+export default AddChannelButton;

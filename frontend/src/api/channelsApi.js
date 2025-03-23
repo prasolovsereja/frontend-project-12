@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '../../config.js';
+import routes from './routes.js';
 
 export const channelsApi = createApi({
   reducerPath: 'channelsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_URL}/api/v1/channels`,
+    baseUrl: `${API_URL}${routes.channels}`,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
 
@@ -15,12 +16,16 @@ export const channelsApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getChannels: builder.query({ query: () => '' }),
+    getChannels: builder.query({
+      query: () => '',
+      providesTags: ['Channels'],
+     }),
     newChannel: builder.mutation({
       query: (channel) => ({
         method: 'POST',
         body: channel,
       }),
+      invalidatesTags: ['Channels'],
     }),
     renameChannel: builder.mutation({
       query: ({ id, name }) => ({
@@ -28,12 +33,14 @@ export const channelsApi = createApi({
         method: 'PATCH',
         body: { name },
       }),
+      invalidatesTags: ['Channels'],
     }),
     removeChannel: builder.mutation({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Channels'],
     }),
   }),
 });
@@ -45,7 +52,7 @@ const {
   useRemoveChannelMutation,
 } = channelsApi;
 export {
-  useGetChannelsQuery as getChannels,
+  useGetChannelsQuery,
   useNewChannelMutation,
   useRemoveChannelMutation,
   useRenameChannelMutation,

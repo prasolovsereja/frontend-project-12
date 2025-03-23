@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { logout } from '../slices/authSlice.js';
+import { logoutAndCleanup } from '../slices/authActions.js'; 
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const NavBar = () => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => dispatch(logout())}
+            onClick={() => dispatch(logoutAndCleanup())}
           >
             {t('interfaces.logOut')}
           </button>

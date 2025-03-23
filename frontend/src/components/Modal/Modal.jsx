@@ -1,10 +1,10 @@
-import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../slices/modalSlice.js';
 import AddChannelForm from './AddChannelForm.jsx';
 import RemoveChannelForm from './RemoveChannelForm.jsx';
 import RenameChannelForm from './RenameChannelForm.jsx';
+import { closeAndStyle } from '../../slices/modalActions.js';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -17,11 +17,6 @@ const Modal = () => {
   };
 
   if (!isOpen) return null;
-  const handleOutsideClick = (e) => {
-    if (e.target.classList.contains('modal-backdrop')) {
-      dispatch(closeModal());
-    }
-  };
 
   const renderContent = () => {
     switch (type) {
@@ -35,12 +30,11 @@ const Modal = () => {
         return null;
     }
   };
-  return ReactDOM.createPortal(
+  return (
     <>
       <div
         className="fade modal-backdrop show"
         role="presentation"
-        onClick={handleOutsideClick}
       />
       <div
         role="dialog"
@@ -48,6 +42,11 @@ const Modal = () => {
         className="fade modal show"
         tabIndex={-1}
         style={{ display: 'block' }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            dispatch(closeAndStyle());
+          }
+        }}
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -60,15 +59,14 @@ const Modal = () => {
                 aria-label="Close"
                 data-bs-dismiss="modal"
                 className="btn btn-close"
-                onClick={() => dispatch(closeModal())}
+                onClick={() => dispatch(closeAndStyle())}
               />
             </div>
             <div className="modal-body">{renderContent()}</div>
           </div>
         </div>
       </div>
-    </>,
-    document.getElementById('modal-root'),
+    </>
   );
 };
 

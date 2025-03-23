@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AppRouter from './routes';
+import AppRouter from './AppRouter.jsx';
 import './App.css';
 
 const App = () => (

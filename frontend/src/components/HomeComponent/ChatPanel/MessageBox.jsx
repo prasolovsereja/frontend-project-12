@@ -1,38 +1,18 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { getMessages } from '../../api/messagesApi.js';
-import { addMessage, setMessages } from '../../slices/messagesSlice.js';
+import { useGetMessagesQuery } from '../../../api/messagesApi.js';
+import { useGetChannelsQuery } from '../../../api/channelsApi.js';
 import MessageForm from './MessageForm.jsx';
-import socket from '../../api/socket.js';
 
-const MessagesBox = () => {
-  const dispatch = useDispatch();
+const ChatPanel = () => {
   const { t } = useTranslation();
-  const messages = useSelector((state) => state.messages.messages);
-  const selectedChannel = useSelector(
-    (state) => state.channels.selectedChannel,
-  );
-  const { data: initialMessages, isLoading, error } = getMessages();
-
-  useEffect(() => {
-    if (initialMessages) {
-      dispatch(setMessages(initialMessages));
-    }
-  }, [dispatch, initialMessages]);
-
-  useEffect(() => {
-    socket.on('newMessage', (message) => {
-      dispatch(addMessage(message));
-    });
-
-    return () => {
-      socket.off('newMessage');
-    };
-  }, [dispatch]);
+  const selectedChannelId = useSelector((state) => state.channels.selectedChannelId);
+  const { data: messages = [], isLoading, error } = useGetMessagesQuery();
+  const { data: channels = [] } = useGetChannelsQuery();
+  const selectedChannel = channels.find((ch) => ch.id === selectedChannelId);
 
   if (isLoading) return <p>{t('info.messagesLoading')}</p>;
   if (error) {
@@ -45,7 +25,7 @@ const MessagesBox = () => {
   }
 
   const filteredMessages = messages?.filter(
-    (msg) => msg.channelId === selectedChannel?.id,
+    (msg) => msg.channelId === selectedChannelId,
   );
 
   return (
@@ -74,4 +54,4 @@ const MessagesBox = () => {
   );
 };
 
-export default MessagesBox;
+export default ChatPanel;

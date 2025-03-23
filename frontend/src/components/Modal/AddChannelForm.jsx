@@ -5,14 +5,17 @@ import {
   ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
-import { useNewChannelMutation } from '../../api/channelsApi.js';
+import {
+  useNewChannelMutation,
+  useGetChannelsQuery,
+} from '../../api/channelsApi.js';
 import getChannelNameSchema from '../../utils/modalValidation.js';
-import { closeModal } from '../../slices/modalSlice.js';
-import { setSelectedChannel } from '../../slices/channelsSlice.js';
+import { setSelectedChannelId } from '../../slices/channelsSlice.js';
+import { closeAndStyle } from '../../slices/modalActions.js';
 
 const AddChannelForm = () => {
   leoProfanity.loadDictionary('ru');
@@ -21,7 +24,7 @@ const AddChannelForm = () => {
   const dispatch = useDispatch();
   const [newChannel] = useNewChannelMutation();
   const { t } = useTranslation();
-  const channels = useSelector((state) => state.channels.channels);
+  const { data: channels = []} = useGetChannelsQuery();
   const channelsNames = channels.map((ch) => ch.name);
 
   const validationSchema = Yup.object({
@@ -37,14 +40,15 @@ const AddChannelForm = () => {
           const response = await newChannel({
             name: leoProfanity.clean(values.name),
           }).unwrap();
+          console.log(response);
           resetForm();
           toast.success(t('toasts.addSuccess'));
-          dispatch(setSelectedChannel(response));
-          dispatch(closeModal());
+          dispatch(setSelectedChannelId(response.id));
+          dispatch(closeAndStyle());
         } catch (error) {
           setErrors({ name: t('validation.required') });
-          console.error(t('errors.addChannelError'), error);
-          toast.error(t('errors.addChannelError'));
+          console.error(t('errors.channelsAddError'), error);
+          toast.error(t('errors.channelsAddError'));
         } finally {
           setSubmitting(false);
         }
@@ -72,7 +76,7 @@ const AddChannelForm = () => {
               <button
                 type="button"
                 className="me-2 btn btn-secondary"
-                onClick={() => dispatch(closeModal())}
+                onClick={() => dispatch(closeAndStyle())}
               >
                 {t('interfaces.cancel')}
               </button>

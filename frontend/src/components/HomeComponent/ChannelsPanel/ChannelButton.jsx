@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedChannel } from '../../../slices/channelsSlice.js';
+import { setSelectedChannelId } from '../../../slices/channelsSlice.js';
 
 const ChannelButton = ({ channel }) => {
   const dispatch = useDispatch();
-  const selectedChannel = useSelector(
-    (state) => state.channels.selectedChannel,
+  const selectedChannelId = useSelector(
+    (state) => state.channels.selectedChannelId,
   );
 
   return (
     <button
       type="button"
       className={`w-100 rounded-0 text-start btn ${
-        selectedChannel && selectedChannel.id === channel.id
+        selectedChannelId && selectedChannelId === channel.id
           ? 'btn-secondary'
           : ''
       }`}
-      onClick={() => dispatch(setSelectedChannel(channel))}
+      onClick={() => dispatch(setSelectedChannelId(channel.id))}
     >
       <span className="me-1">#</span>
       {channel.name}

@@ -8,8 +8,9 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { login } from '../slices/authSlice.js';
+import { loginAndSetup } from '../slices/authActions.js';
 import api from '../api/axios.js';
+import routes from '../api/routes.js';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,9 +34,9 @@ const Login = () => {
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
                   try {
-                    const response = await api.post('/login', values);
+                    const response = await api.post(routes.login, values);
                     const { token, username } = response.data;
-                    dispatch(login({ token, username }));
+                    dispatch(loginAndSetup({ token, username }));
                     navigate('/');
                   } catch (error) {
                     console.error(

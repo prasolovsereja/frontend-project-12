@@ -16,15 +16,11 @@ const modalSlice = createSlice({
       state.isOpen = true;
       state.type = action.payload.type;
       state.channel = action.payload.channel || null;
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('modal-open');
     },
     closeModal: (state) => {
       state.isOpen = false;
       state.type = null;
       state.channel = null;
-      document.body.classList.remove('modal-open');
-      document.body.style.overflow = '';
     },
   },
 });

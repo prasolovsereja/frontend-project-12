@@ -1,21 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRemoveChannelMutation } from '../../api/channelsApi.js';
-import { closeModal } from '../../slices/modalSlice.js';
-import { setSelectedChannel } from '../../slices/channelsSlice.js';
+import { setSelectedChannelId } from '../../slices/channelsSlice.js';
+import { closeAndStyle } from '../../slices/modalActions.js';
 
 const RemoveChannelForm = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [removeChannel] = useRemoveChannelMutation();
-  const channels = useSelector((state) => state.channels.channels);
 
   const handleDelete = async () => {
     try {
       await removeChannel(channel.id).unwrap();
-      dispatch(closeModal());
-      dispatch(setSelectedChannel(channels[0]));
+      dispatch(closeAndStyle());
+      dispatch(setSelectedChannelId('1'));
       toast.success(t('toasts.deleteSuccess'));
     } catch (error) {
       console.error(t('errors.channelDeleteError'), error);
@@ -30,7 +29,7 @@ const RemoveChannelForm = ({ channel }) => {
         <button
           type="button"
           className="me-2 btn btn-secondary"
-          onClick={() => dispatch(closeModal())}
+          onClick={() => dispatch(closeAndStyle())}
         >
           {t('interfaces.cancel')}
         </button>

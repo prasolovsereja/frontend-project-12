@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
-import { useNewMessageMutation } from '../../api/messagesApi';
+import { useNewMessageMutation } from '../../../api/messagesApi.js';
+
 
 const MessageForm = () => {
   leoProfanity.loadDictionary('ru');
@@ -11,8 +12,8 @@ const MessageForm = () => {
 
   const [message, setMessage] = useState('');
   const { t } = useTranslation();
-  const selectedChannel = useSelector(
-    (state) => state.channels.selectedChannel,
+  const selectedChannelId = useSelector(
+    (state) => state.channels.selectedChannelId,
   );
   const username = useSelector((state) => state.auth.username);
   const [newMessage] = useNewMessageMutation();
@@ -27,7 +28,7 @@ const MessageForm = () => {
     try {
       await newMessage({
         body: profanityMessage,
-        channelId: selectedChannel.id,
+        channelId: selectedChannelId,
         username,
       });
       setMessage('');
