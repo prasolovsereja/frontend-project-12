@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import { useNewMessageMutation } from '../../../api/messagesApi.js';
 
-
 const MessageForm = () => {
   leoProfanity.loadDictionary('ru');
   leoProfanity.loadDictionary('en');

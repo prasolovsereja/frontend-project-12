@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { closeModal } from '../../slices/modalSlice.js';
+import { closeAndStyle } from '../../slices/modalActions.js';
 import AddChannelForm from './AddChannelForm.jsx';
 import RemoveChannelForm from './RemoveChannelForm.jsx';
 import RenameChannelForm from './RenameChannelForm.jsx';
-import { closeAndStyle } from '../../slices/modalActions.js';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -46,6 +45,11 @@ const Modal = () => {
           if (e.target === e.currentTarget) {
             dispatch(closeAndStyle());
           }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            dispatch(closeAndStyle());
+          };
         }}
       >
         <div className="modal-dialog modal-dialog-centered">

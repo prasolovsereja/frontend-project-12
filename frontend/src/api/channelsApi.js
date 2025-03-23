@@ -19,7 +19,7 @@ export const channelsApi = createApi({
     getChannels: builder.query({
       query: () => '',
       providesTags: ['Channels'],
-     }),
+    }),
     newChannel: builder.mutation({
       query: (channel) => ({
         method: 'POST',

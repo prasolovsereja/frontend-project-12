@@ -9,7 +9,7 @@ let store = null;
 
 const createEmptySocket = () => {
   if (!socket) {
-    socket = io(WS_URL,{
+    socket = io(WS_URL, {
       autoConnect: 'false',
       transports: ['websocket'],
     });
@@ -19,7 +19,7 @@ const createEmptySocket = () => {
 
 const setStore = (externalStore) => {
   store = externalStore;
-}
+};
 
 const connectWithToken = (token) => {
   if (!socket) return;
@@ -41,7 +41,7 @@ const createSubscribe = () => {
   });
 
   socket.on('removeChannel', ({ id }) => {
-    const selectedChannelId = store.getState().channels.selectedChannelId;
+    const { selectedChannelId } = store.getState().channels;
     if (selectedChannelId === id) {
       dispatch(setSelectedChannelId(0));
     }
@@ -51,7 +51,7 @@ const createSubscribe = () => {
 
   socket.on('renameChannel', () => {
     dispatch(channelsApi.util.invalidateTags(['Channels']));
-  })
+  });
 };
 
 const disconnectSocket = () => {
@@ -61,7 +61,6 @@ const disconnectSocket = () => {
     socket = null;
   }
 };
-
 
 export default {
   createEmptySocket,

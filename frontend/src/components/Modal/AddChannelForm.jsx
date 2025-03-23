@@ -24,7 +24,7 @@ const AddChannelForm = () => {
   const dispatch = useDispatch();
   const [newChannel] = useNewChannelMutation();
   const { t } = useTranslation();
-  const { data: channels = []} = useGetChannelsQuery();
+  const { data: channels = [] } = useGetChannelsQuery();
   const channelsNames = channels.map((ch) => ch.name);
 
   const validationSchema = Yup.object({

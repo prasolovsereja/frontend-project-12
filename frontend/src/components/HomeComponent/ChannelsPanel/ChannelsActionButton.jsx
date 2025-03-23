@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import ChannelButton from './ChannelButton.jsx';
-import { openModal } from '../../../slices/modalSlice.js';
 import { openAndStyle } from '../../../slices/modalActions.js';
 
 const ChannelsActionButton = ({ channel }) => {
